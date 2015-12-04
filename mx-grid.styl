@@ -1,0 +1,37 @@
+$screen = {
+	"sm": 768px,
+	"md": 960px,
+	"lg": 1120px
+}
+
+.row-golden
+	
+	$golden(iter)
+		if iter > 0
+			iter = iter - 1
+			1 + 1 / $golden(iter)
+		else
+			1
+			
+	$gv  = $golden(256)
+	$gvl = $gv / (1 + $gv)
+	
+	@media(max-width: $screen["sm"] - 1)
+		.col-xs-l,
+		.col-xs-large
+			float: left
+			width: (100 * $gvl)% !important
+		.col-xs-s,
+		.col-xs-small
+			float: left
+			width: (100 * (1 - $gvl))% !important
+	for $tag, $size in $screen
+		@media(min-width: $size)
+			.col-{$tag}-l,
+			.col-{$tag}-large
+				float: left
+				width: (100 * $gvl)% !important
+			.col-{$tag}-s,
+			.col-{$tag}-small
+				float: left
+				width: (100 * (1 - $gvl))% !important
